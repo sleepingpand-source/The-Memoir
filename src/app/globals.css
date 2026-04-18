@@ -1,26 +1,188 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
+@theme {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-primary: var(--primary);
+  --color-primary-dim: var(--primary-dim);
+  --color-primary-fixed: var(--primary-fixed);
+  --color-primary-fixed-dim: var(--primary-fixed-dim);
+  --color-primary-container: var(--primary-container);
+  --color-on-primary: var(--on-primary);
+  --color-on-primary-container: var(--on-primary-container);
+  
+  --color-secondary: var(--secondary);
+  --color-secondary-dim: var(--secondary-dim);
+  --color-secondary-container: var(--secondary-container);
+  
+  --color-tertiary: var(--tertiary);
+  --color-tertiary-container: var(--tertiary-container);
+  
+  --color-surface: var(--surface);
+  --color-surface-dim: var(--surface-dim);
+  --color-surface-bright: var(--surface-bright);
+  --color-surface-container: var(--surface-container);
+  --color-surface-container-low: var(--surface-container-low);
+  --color-surface-container-lowest: var(--surface-container-lowest);
+  --color-surface-container-high: var(--surface-container-high);
+  --color-surface-container-highest: var(--surface-container-highest);
+  --color-surface-variant: var(--surface-variant);
+  
+  --color-on-surface: var(--on-surface);
+  --color-on-surface-variant: var(--on-surface-variant);
+  --color-on-background: var(--on-background);
+  --color-inverse-surface: var(--inverse-surface);
+  --color-inverse-on-surface: var(--inverse-on-surface);
+  
+  --font-headline: 'Noto Serif', serif;
+  --font-body: 'Manrope', sans-serif;
+  --font-label: 'Manrope', sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+:root {
+  /* Light Mode Palette base - Rich Floral Pastels */
+  --background: #fffafa; /* Ultra faint pink wash */
+  --foreground: #2d2638; /* Soft intense plum-black for high contrast text */
+  
+  --primary: #8a6cbd;    /* More vibrant soft violet */
+  --primary-dim: #7355a6;
+  --primary-fixed: #e2d1fa;
+  --primary-fixed-dim: #d1b8f5;
+  --primary-container: #5c3b94; /* Dark violet for inverse containers */
+  --on-primary: #ffffff;
+  --on-primary-container: #ffffff;
+
+  --secondary: #b36b85;
+  --secondary-dim: #99556e;
+  --secondary-container: #ffebf0;
+
+  --tertiary: #8f6e96;
+  --tertiary-container: #fae1ff;
+
+  --surface: #fffcfd; /* Creamy pink-white */
+  --surface-dim: #f5f0f3;
+  --surface-bright: #ffffff;
+  --surface-container: #f2eaf4;      /* Soft lavender tint */
+  --surface-container-low: #f7f0f9;  /* Very light violet */
+  --surface-container-lowest: #ffffff;
+  --surface-container-high: #ecdcf2; /* Deeper lavender for differentiation */
+  --surface-container-highest: #e5d4ec;
+  --surface-variant: #e8d9ef;
+
+  --on-surface: #2d2638;
+  --on-surface-variant: #5a4b6e;  /* Plum toned medium contrast */
+  --on-background: #2d2638;
+  
+  --outline-variant: #c5b4d4;     /* Soft purple border */
+  --inverse-surface: #1a0e2e;
+  --inverse-on-surface: #9d8fb4;
 }
 
+.dark {
+  /* Deep starry-night purples and dark indigos */
+  --background: #09031c;       /* Deep space purple almost black */
+  --foreground: #e4dff2;       /* Soft light purple/white */
+  
+  --primary: #a385f0;          /* Glowing neon indigo */
+  --primary-dim: #8860f0;
+  --primary-container: #2b1759;
+  --primary-fixed: #a385f0;
+  --primary-fixed-dim: #8860f0;
+  --on-primary: #09031c;
+  --on-primary-container: #d6beff;
+
+  --secondary: #d49db2;
+  --secondary-dim: #bf7a95;
+  --secondary-container: #4a192e;
+
+  --tertiary: #c09cc7;
+  --tertiary-container: #3d2047;
+
+  --surface: #0c0524;          /* Slightly lighter than bg */
+  --surface-dim: #0a041f;
+  --surface-bright: #120930;
+  --surface-container: #10082b;
+  --surface-container-low: #0e0726;
+  --surface-container-lowest: #09031c;
+  --surface-container-high: #150a36;
+  --surface-container-highest: #1a0e40;
+  --surface-variant: #26164d;
+
+  --on-surface: #e4dff2;
+  --on-surface-variant: #a9a1c4;
+  --on-background: #e4dff2;
+
+  --inverse-surface: #e4dff2;
+  --inverse-on-surface: #10082b;
+}
+
+/* Base Body Styles */
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-body);
+  transition: background-color 0.5s ease, color 0.5s ease;
+  overflow-x: hidden;
+}
+
+::selection {
+  background-color: var(--primary-container);
+  color: var(--on-primary-container);
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+}
+
+/* Light Theme Enhancements */
+@keyframes floatUp {
+  0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+  10% { opacity: 0.6; }
+  90% { opacity: 0.6; }
+  100% { transform: translateY(-20vh) rotate(360deg); opacity: 0; }
+}
+
+.light-theme-particles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: -10;
+  overflow: hidden;
+  display: block;
+}
+
+.dark .light-theme-particles {
+  display: none;
+}
+
+.particle {
+  position: absolute;
+  background: radial-gradient(circle, var(--primary-container) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: floatUp 15s infinite linear;
+}
+
+.particle:nth-child(even) {
+  background: radial-gradient(circle, var(--secondary-container) 0%, transparent 70%);
+  animation-duration: 20s;
+  animation-delay: 5s;
+}
+
+/* 3D Envelope Flip Utilities */
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+.backface-hidden {
+  backface-visibility: hidden;
 }

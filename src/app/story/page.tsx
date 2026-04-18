@@ -42,6 +42,11 @@ function saveReels(reels: Reel[]) {
   try { localStorage.setItem(LS_KEY, JSON.stringify(reels)); } catch {}
 }
 
+const isVideoUrl = (url: string | null | undefined) => {
+  if (!url) return false;
+  return /\.(mp4|webm|mov|ogg)$/i.test(url) || url.startsWith('data:video');
+};
+
 export default function StoryPage() {
   // ── Scroll drag ─────────────────────────────────────
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -188,7 +193,11 @@ export default function StoryPage() {
                 onMouseEnter={e => { if (!isDragging) (e.currentTarget as HTMLElement).style.transform = "translateY(-8px)"; }}
                 onMouseLeave={e => { (e.currentTarget as HTMLElement).style.transform = "translateY(0)"; }}
               >
-                <img src={reel.img} alt={reel.title} draggable={false} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 pointer-events-none" />
+                {isVideoUrl(reel.img) ? (
+                  <video src={reel.img} autoPlay loop muted playsInline className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 pointer-events-none" />
+                ) : (
+                  <img src={reel.img} alt={reel.title} draggable={false} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 pointer-events-none" />
+                )}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-transparent" />
 
                 {/* Text */}
@@ -313,23 +322,27 @@ export default function StoryPage() {
                     placeholder="What was special about this moment?" />
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold text-[var(--on-surface)] mb-1.5 uppercase tracking-wide">Photo</label>
+                  <label className="block text-xs font-semibold text-[var(--on-surface)] mb-1.5 uppercase tracking-wide">Photo / Video</label>
                   <div className="relative w-full h-40 border-2 border-dashed border-[var(--outline-variant)]/40 rounded-xl flex flex-col items-center justify-center bg-[var(--surface-container)] hover:bg-[var(--surface-container-high)] transition-colors overflow-hidden cursor-pointer group"
                     onClick={() => addFileRef.current?.click()}>
-                    <input ref={addFileRef} type="file" accept="image/*" className="hidden" onChange={handleAddFile} />
+                    <input ref={addFileRef} type="file" accept="image/*,video/*" className="hidden" onChange={handleAddFile} />
                     {addPreview ? (
-                      <img src={addPreview} alt="preview" className="absolute inset-0 w-full h-full object-cover" />
+                      isVideoUrl(addPreview) || (addFile && addFile.type.startsWith('video/')) ? (
+                        <video src={addPreview} autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover" />
+                      ) : (
+                        <img src={addPreview} alt="preview" className="absolute inset-0 w-full h-full object-cover" />
+                      )
                     ) : (
                       <div className="flex flex-col items-center text-[var(--on-surface-variant)] gap-2">
                         <Upload size={28} className="opacity-50" />
-                        <span className="text-sm font-body">Click to upload photo</span>
+                        <span className="text-sm font-body">Click to upload photo or video</span>
                       </div>
                     )}
                   </div>
                 </div>
                 {!addFile && (
                   <div>
-                    <label className="block text-xs font-semibold text-[var(--on-surface)] mb-1.5 uppercase tracking-wide">Or paste image URL</label>
+                    <label className="block text-xs font-semibold text-[var(--on-surface)] mb-1.5 uppercase tracking-wide">Or paste URL</label>
                     <input type="url" value={addForm.img}
                       onChange={e => setAddForm({ ...addForm, img: e.target.value })}
                       className="w-full bg-[var(--surface-container)] border border-[var(--outline-variant)]/30 rounded-xl px-4 py-2.5 text-[var(--on-surface)] focus:outline-none focus:border-[var(--primary)] text-sm transition-colors"

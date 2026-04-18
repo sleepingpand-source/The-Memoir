@@ -18,7 +18,7 @@ export default function LettersHeart() {
     },
     {
       author: "Your Sheru",
-      content: "Happy birthday bestie! We have so many more memories to make. Thanks for always being my debugging partner in crime.",
+      content: "Hum sth hoty hain bht khush rhty mza krty❤️ neena tu tou mera pyara beta h meri jaan h bhtt azeez ho tm mjhe. Mn chahhti hun t hmesha khush rho🫀 Tmrhi sari dili muraad puri hon aleena🥹 love you mera bacha meri choti behna💁🏻‍♀️ lkin tu mjhy he chota bnadeti h😼😭 aur tm kamyaab ho bht agy brdho apni zinadagi mn ho tum chaho wesa ho tmhey har more pe khushiyaan hon🤍🫶🏼 tm hum sb ko azeez ho tmhry bina na msti hai na mza kyunk tu aur mn tou puri mehfil ki jaan hain na pluss damad bh hain humlog😛 may we stay with each other forever InshaaAllah allah humsb ko nzron sy bachye jo jlty hain wh jal k mrjyen🤥 allah hmari dosti salamt rkhy hmari bonding aur hmara saathhh❤️‍🩹 I'm always here for you at any time. You mean alot to me.. don't forget sheraaa luvsss neenaaa😾🫶🏼",
     },
     {
       author: "Your Dabbu",
